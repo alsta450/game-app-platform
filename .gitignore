@@ -1,0 +1,25 @@
+# Terraform
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+
+# Kubernetes config
+kubeconfig
+
+# Sensitive YAML files
+secrets.yaml
+
+# Output and generated files
+output.tf
+
+# Ignore editor and OS specific files
+*.swp
+*.bak
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+
+# Ignore any other sensitive or unnecessary files
+# Add any additional files or directories you want to ignore
