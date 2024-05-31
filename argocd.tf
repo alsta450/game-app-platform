@@ -14,8 +14,3 @@ resource "helm_release" "argo_cd" {
     local_sensitive_file.my_sks_kubeconfig_file
   ]
 }
-
-
-
-
-

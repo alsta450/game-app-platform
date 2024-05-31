@@ -14,6 +14,7 @@ resource "helm_release" "game_chart" {
   })]
 
   depends_on = [
-    helm_release.cert_manager
+    helm_release.cert_manager,
+    helm_release.nginx_ingress
   ]
 }
