@@ -16,7 +16,7 @@ jobs:
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        terraform_version: 1.0.0  # Specify the version you need
+        terraform_version: 1.7.2  # Specify the version you need
 
     - name: Render Helm values
       run: |
