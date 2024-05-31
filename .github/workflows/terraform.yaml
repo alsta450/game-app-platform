@@ -27,8 +27,6 @@ jobs:
         sed -i 's/{{ .Values.POSTGRES_DB_PASSWORD }}/$POSTGRES_DB_PASSWORD/g' values.yaml
         sed -i 's/{{ .Values.CLUSTER_ISSUER_EMAIL }}/$CLUSTER_ISSUER_EMAIL/g' values.yaml
       env:
-        TF_VAR_exo_key: ${{ secrets.TF_VAR_EXO_KEY }}
-        TF_VAR_exo_secret: ${{ secrets.TF_VAR_EXO_SECRET }}
         CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         KEYCLOAK_ADMIN: ${{ secrets.KEYCLOAK_ADMIN }}
         KEYCLOAK_PASSWORD: ${{ secrets.KEYCLOAK_PASSWORD }}
@@ -41,4 +39,7 @@ jobs:
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
+      env:
+        TF_VAR_exo_key: ${{ secrets.TF_VAR_EXO_KEY }}
+        TF_VAR_exo_secret: ${{ secrets.TF_VAR_EXO_SECRET }}
 
