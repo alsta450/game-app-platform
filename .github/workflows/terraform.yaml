@@ -26,12 +26,6 @@ jobs:
         sed -i 's/{{ .Values.POSTGRES_DB_USER }}/$POSTGRES_DB_USER/g' values.yaml
         sed -i 's/{{ .Values.POSTGRES_DB_PASSWORD }}/$POSTGRES_DB_PASSWORD/g' values.yaml
         sed -i 's/{{ .Values.CLUSTER_ISSUER_EMAIL }}/$CLUSTER_ISSUER_EMAIL/g' values.yaml
-
-    - name: Terraform Init
-      run: terraform init
-
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
       env:
         TF_VAR_exo_key: ${{ secrets.TF_VAR_EXO_KEY }}
         TF_VAR_exo_secret: ${{ secrets.TF_VAR_EXO_SECRET }}
@@ -41,3 +35,10 @@ jobs:
         POSTGRES_DB_USER: ${{ secrets.POSTGRES_DB_USER }}
         POSTGRES_DB_PASSWORD: ${{ secrets.POSTGRES_DB_PASSWORD }}
         CLUSTER_ISSUER_EMAIL: ${{ secrets.CLUSTER_ISSUER_EMAIL }}
+        
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+
