@@ -48,6 +48,15 @@ resource "exoscale_security_group_rule" "cilium_health_tcp" {
   user_security_group_id = exoscale_security_group.my_security_group.id
 }
 
+resource "exoscale_security_group_rule" "nodeport_range" {
+  security_group_id = exoscale_security_group.my_security_group.id
+  description       = "Kubernetes Nodeport Range"
+  type              = "INGRESS"
+  protocol          = "TCP"
+  cidr              = "0.0.0.0/0"
+  start_port        = 30000
+  end_port          = 32676
+}
 
 resource "exoscale_sks_cluster" "my_sks_cluster" {
   zone = local.zone

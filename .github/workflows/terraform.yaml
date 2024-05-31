@@ -1,0 +1,43 @@
+name: Terraform CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.0  # Specify the version you need
+
+    - name: Render Helm values
+        run: |
+          sed -i "s/{{ .Values.CLIENT_SECRET }}/$CLIENT_SECRET/g" values.yaml
+          sed -i "s/{{ .Values.KEYCLOAK_ADMIN }}/$KEYCLOAK_ADMIN/g" values.yaml
+          sed -i "s/{{ .Values.KEYCLOAK_PASSWORD }}/$KEYCLOAK_PASSWORD/g" values.yaml
+          sed -i "s/{{ .Values.POSTGRES_DB_USER }}/$POSTGRES_DB_USER/g" values.yaml
+          sed -i "s/{{ .Values.POSTGRES_DB_PASSWORD }}/$POSTGRES_DB_PASSWORD/g" values.yaml
+          sed -i "s/{{ .Values.CLUSTER_ISSUER_EMAIL }}/$CLUSTER_ISSUER_EMAIL/g" values.yaml
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      env:
+        TF_VAR_exo_key: ${{ secrets.TF_VAR_EXO_KEY }}
+        TF_VAR_exo_secret: ${{ secrets.TF_VAR_EXO_SECRET }}
+        CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        KEYCLOAK_ADMIN: ${{ secrets.KEYCLOAK_ADMIN }}
+        KEYCLOAK_PASSWORD: ${{ secrets.KEYCLOAK_PASSWORD }}
+        POSTGRES_DB_USER: ${{ secrets.POSTGRES_DB_USER }}
+        POSTGRES_DB_PASSWORD: ${{ secrets.POSTGRES_DB_PASSWORD }}
+        CLUSTER_ISSUER_EMAIL: ${{ secrets.CLUSTER_ISSUER_EMAIL }}
