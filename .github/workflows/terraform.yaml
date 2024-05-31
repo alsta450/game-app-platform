@@ -19,13 +19,13 @@ jobs:
         terraform_version: 1.0.0  # Specify the version you need
 
     - name: Render Helm values
-        run: |
-          sed -i 's/{{ .Values.CLIENT_SECRET }}/$CLIENT_SECRET/g' values.yaml
-          sed -i 's/{{ .Values.KEYCLOAK_ADMIN }}/$KEYCLOAK_ADMIN/g' values.yaml
-          sed -i 's/{{ .Values.KEYCLOAK_PASSWORD }}/$KEYCLOAK_PASSWORD/g' values.yaml
-          sed -i 's/{{ .Values.POSTGRES_DB_USER }}/$POSTGRES_DB_USER/g' values.yaml
-          sed -i 's/{{ .Values.POSTGRES_DB_PASSWORD }}/$POSTGRES_DB_PASSWORD/g' values.yaml
-          sed -i 's/{{ .Values.CLUSTER_ISSUER_EMAIL }}/$CLUSTER_ISSUER_EMAIL/g' values.yaml
+      run: |
+        sed -i 's/{{ .Values.CLIENT_SECRET }}/$CLIENT_SECRET/g' values.yaml
+        sed -i 's/{{ .Values.KEYCLOAK_ADMIN }}/$KEYCLOAK_ADMIN/g' values.yaml
+        sed -i 's/{{ .Values.KEYCLOAK_PASSWORD }}/$KEYCLOAK_PASSWORD/g' values.yaml
+        sed -i 's/{{ .Values.POSTGRES_DB_USER }}/$POSTGRES_DB_USER/g' values.yaml
+        sed -i 's/{{ .Values.POSTGRES_DB_PASSWORD }}/$POSTGRES_DB_PASSWORD/g' values.yaml
+        sed -i 's/{{ .Values.CLUSTER_ISSUER_EMAIL }}/$CLUSTER_ISSUER_EMAIL/g' values.yaml
 
     - name: Terraform Init
       run: terraform init
