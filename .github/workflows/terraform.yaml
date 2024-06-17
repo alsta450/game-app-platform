@@ -18,6 +18,11 @@ jobs:
       with:
         terraform_version: 1.7.2  # Specify the version you need
 
+    - name: Configure AWS credentials
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
     - name: Render Helm values
       run: |
         sed -i 's/{{ .Values.CLIENT_SECRET }}/$CLIENT_SECRET/g' values.yaml
