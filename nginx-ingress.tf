@@ -11,6 +11,6 @@ resource "helm_release" "nginx_ingress" {
   }
 
   depends_on = [
-    helm_release.argo_cd
+    local_sensitive_file.my_sks_kubeconfig_file
   ]
 }

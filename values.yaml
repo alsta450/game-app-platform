@@ -69,7 +69,7 @@ postgres:
 
 # game
 game:
-  image: alsta450/game-app:1.1.7
+  image: alsta450/game-app:2.1.0
   service:
     type: ClusterIP
     port: 8080
