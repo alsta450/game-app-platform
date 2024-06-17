@@ -26,7 +26,14 @@ jobs:
         sed -i 's/{{ .Values.POSTGRES_DB_USER }}/$POSTGRES_DB_USER/g' values.yaml
         sed -i 's/{{ .Values.POSTGRES_DB_PASSWORD }}/$POSTGRES_DB_PASSWORD/g' values.yaml
         sed -i 's/{{ .Values.CLUSTER_ISSUER_EMAIL }}/$CLUSTER_ISSUER_EMAIL/g' values.yaml
-
+      env:
+        CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        KEYCLOAK_ADMIN: ${{ secrets.KEYCLOAK_ADMIN }}
+        KEYCLOAK_PASSWORD: ${{ secrets.KEYCLOAK_PASSWORD }}
+        POSTGRES_DB_USER: ${{ secrets.POSTGRES_DB_USER }}
+        POSTGRES_DB_PASSWORD: ${{ secrets.POSTGRES_DB_PASSWORD }}
+        CLUSTER_ISSUER_EMAIL: ${{ secrets.CLUSTER_ISSUER_EMAIL }}
+        
     - name: Terraform Init
       run: terraform init
 
@@ -35,9 +42,4 @@ jobs:
       env:
         TF_VAR_exo_key: ${{ secrets.TF_VAR_EXO_KEY }}
         TF_VAR_exo_secret: ${{ secrets.TF_VAR_EXO_SECRET }}
-        CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-        KEYCLOAK_ADMIN: ${{ secrets.KEYCLOAK_ADMIN }}
-        KEYCLOAK_PASSWORD: ${{ secrets.KEYCLOAK_PASSWORD }}
-        POSTGRES_DB_USER: ${{ secrets.POSTGRES_DB_USER }}
-        POSTGRES_DB_PASSWORD: ${{ secrets.POSTGRES_DB_PASSWORD }}
-        CLUSTER_ISSUER_EMAIL: ${{ secrets.CLUSTER_ISSUER_EMAIL }}
+
